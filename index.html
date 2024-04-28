@@ -1,41 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Basic Website</title>
-	<link rel="stylesheet" href="styles.css">
-	<script src="https://cdn.tiny.cloud/1/BLAHBLAHBLAH/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
-	<script>
-		tinymce.init({
-		selector: '#mytextarea',
-		license_key: 'gpl|BLAHBLAHBLAH'
-		});
-	</script>
-	<script type='text/javascript' src='http://d3js.org/d3.v3.min.js'></script>
-	<script type='text/javascript' src='http://d3js.org/topojson.v1.min.js'></script>
-	<script type='text/javascript' src='planetaryjs.min.js'></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Website</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tiny.cloud/1/BLAHBLAHBLAH/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+        selector: '#mytextarea',
+        license_key: 'gpl|BLAHBLAHBLAH'
+        });
+    </script>
+    <script type='text/javascript' src='http://d3js.org/d3.v3.min.js'></script>
+    <script type='text/javascript' src='http://d3js.org/topojson.v1.min.js'></script>
+    <script type='text/javascript' src='planetaryjs.min.js'></script>
 </head>
   <body>
-	<script>
-	tinymce.init({
-		selector: 'textarea',
-		plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate ai mentions tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss markdown',
-		toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
-		tinycomments_mode: 'embedded',
-		tinycomments_author: 'Author name',
-		mergetags_list: [
-		{ value: 'First.Name', title: 'First Name' },
-		{ value: 'Email', title: 'Email' },
-		],
-		ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
-	});
-	</script>
-	
-	<!-- <textarea></textarea> -->
-	
-	<canvas id='rotatingGlobe' width='600' height='600' style='width: 600px; height: 600px; cursor: move;'></canvas>
-	<div class="glow"></div>
-	<script src="script.js"></script>
+    <main>
+        <header>
+            <h1 id="siteTitle"> flood finder </h1>
+        </header>
+
+
+        <h2 id="AIHeader"> AI-powered flood detection system </h2>
+    </main>
+
+
+    <button id="floodStatusButton" onclick="displayingOutput()"> check flood status </button>
+    <div class="inputArea">
+        <input type="text" id="cityInput" placeholder="Enter Your City">
+
+
+        <button id="cityInputButton" onclick="displayingOutput()"> detect </button>
+    </div>
+   
+    <div id="outputSection">
+        <p> Output stuff </p>
+    </div>
+
+
+    <footer>
+        <p>
+            &copy; Andrew Yeow, Darroll Saddi, Rawan Dirhalleh
+        </p>
+    </footer>
+
+
+    <!-- <script>
+        tinymce.init({
+        selector: 'textarea',
+        plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate ai mentions tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss markdown',
+        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+        tinycomments_mode: 'embedded',
+        tinycomments_author: 'Author name',
+        mergetags_list: [
+        { value: 'First.Name', title: 'First Name' },
+        { value: 'Email', title: 'Email' },
+        ],
+        ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
+    });
+    </script> -->
+   
+    <!-- <textarea></textarea> -->
+   
+    <!-- Globe files by CodeMaster7000 used under MIT Licensing https://github.com/CodeMaster7000/Globe?tab=readme-ov-file-->
+    <div class="globeContainer">
+        <canvas id='rotatingGlobe' width='600' height='600' style='width: 600px; height: 600px; cursor: move;'>
+        </canvas>
+        <!-- <div id="glow" class="glow"></div> -->
+    </div>
+    <script src="script.js"></script>
   </body>
 </html>
