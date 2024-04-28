@@ -1,5 +1,5 @@
 @font-face {
-    /* Cedora Bold font by Lafontype used from https://www.1001fonts.com/sleek-fonts.html?page=6*/
+    /* Cedora Bold font by Lafontype used from https://www.1001fonts.com/cedora-font.html*/
     font-family: CedoraBold;
     font-weight: bold;
     src: url("Cedora-Bold.otf") format("opentype");
@@ -14,12 +14,23 @@
 }
 
 
+@keyframes fadeIn {
+    from {opacity: 0; }
+    to {opacity: 1;}
+}
+
+
+@keyframes fadeAway {
+    from {opacity: 1;}
+    to {opacity: 0; display: none;}
+}
+
+
 html,body{
     font-family: CedoraBold;
     height: 100%;
     background-image: linear-gradient(to bottom right, #12214a, #495d92);
     overflow: hidden;
-    color: #bdc9db
 }
 
 
@@ -28,6 +39,7 @@ body {
     line-height: 1.6;
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 
@@ -35,31 +47,60 @@ main {
     display: flex;
     flex-direction: row;
     padding-bottom: 20px;
-    width: 100%;
 }
 
 
 header {
-    margin-left: 20px;
-    margin-top: -60px;
+    text-align: center;
+    width: 100%;
 }
 
 
 #siteTitle {
-    font-size: 80px;
+    font-size: 60px;
+    transition: margin-left 1s;
+    display: inline-block;
+    color: #bdc9db;
+    white-space: nowrap;
 }
 
 
-#AIHeader {
-    margin-top: 43px;
+#siteTitle.transformed {
+    margin-left: -1500px;
+}
+
+
+#tryItButton {
+    margin-top: 0px;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+#tryItButton.transformed {
+    animation: fadeAway 0.5s forwards;
+}
+
+
+h2 {
+    margin-top: -80px;
     font-size: 35px;
     font-family: BarlowCondensed;
+    color: #bdc9db;
+}
+h2.transformed {
+    animation: fadeAway 0.5s forwards;
 }
 
 
 #floodStatusButton {
+    opacity: 0;
+    display: none;
     margin-left: 20px;
-    margin-top: -60px;
+    margin-top: -20px;
+    transition: opacity 0.5s ease;
+}
+#floodStatusButton.transformed {
+    display:block;
+    opacity:1;
 }
 
 
@@ -73,14 +114,13 @@ button {
     font-size: 30px;
     outline: none;
     font-weight: bold;
+    transition: transform 0.3s;
 }
-
 
 button:hover {
+    cursor: pointer;
     transform: scale(1.1);
 }
-
-
 .inputArea {
     display: flex;
     flex-direction: row;
@@ -88,6 +128,7 @@ button:hover {
 
 
 #cityInput {
+    display: none;
     width: fit-content;
     margin-left: 20px;
     margin-top: 30px;
@@ -96,8 +137,13 @@ button:hover {
     border-radius: 50px;
     background-color: black;
     font-size: 30px;
+    color: #f9f9f9;
     outline: none;
     opacity: 30%;
+}
+#cityInput.transformed {
+    display:block;
+    animation: fadeIn 0.5s;
 }
 
 
@@ -107,17 +153,13 @@ button:hover {
 
 
 #cityInputButton {
-    background-color: #e1c065;
+    display: none;
     margin-top: 30px;
     margin-left: 20px;
-    padding: 20px;
-    color: black;
-    width: fit-content;
-    border: none;
-    border-radius: 50px;
-    font-size: 30px;
-    outline: none;
-    font-weight: bold;
+}
+#cityInputButton.transformed {
+    display:block;
+    animation: fadeIn 0.5s forwards;
 }
 
 
@@ -132,6 +174,7 @@ button:hover {
     border-radius: 30px;
     background-color: #718cb6;
     font-size: 30px;
+    animation: fadeIn 0.5s;
 }
 
 
@@ -141,23 +184,16 @@ footer {
     width: 100%;
     position: fixed;
     bottom: -12px;
+    color: #718cb6;
 }
-
-
-/* #rotatingGlobe{
-    margin: 0 auto;
-    width: 200px;
-    height: 200px;
-    position: absolute;
-    bottom: -200px;
-    right: 50px;
-    transform: scale(2.3);
-} */
 
 
 .globeContainer {
     display: flex;
     justify-content: center;
+
+    /* TODO: remove */
+    display: none;
 }
 
 
@@ -171,11 +207,34 @@ footer {
     transform: scale(1.3);
     transition: transform 2s ease, bottom 2s ease, right 5s ease, position 2s ease;
 }
-
-
 #rotatingGlobe.transformed {
+    display:block;
     position: absolute;
     bottom: -200px;
     right: 50px;
     transform: scale(2.3);
+}
+
+
+/*.glow{
+    width: 800px;
+    height: 800px;
+    background: rgb(255,255,255);
+    background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 50%, rgba(255,255,255,0) 100%);
+    position: absolute;
+    bottom: -350px;
+    right: 100px;
+    transform:translate(-30%,-70%);
+}*/
+
+
+@media only screen and (max-width: 1200px) {
+}
+@media only screen and (max-width: 992px) {
+}
+@media only screen and (max-width: 768px) {
+}
+@media only screen and (max-width: 480px) {
+}
+@media only screen and (max-width: 320px) {
 }

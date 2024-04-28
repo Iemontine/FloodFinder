@@ -76,6 +76,21 @@
 })();
 
 
+function transition() {
+    document.body.classList.toggle('transformed');
+    document.getElementById('siteTitle').classList.toggle('transformed');
+    document.getElementById('tryItButton').classList.toggle('transformed');
+    document.getElementById('mainHeader').classList.toggle('transformed');
+    document.getElementById('floodStatusButton').classList.toggle('transformed');
+    document.getElementById('cityInput').classList.toggle('transformed');
+    document.getElementById('cityInputButton').classList.toggle('transformed');
+    document.getElementById('rotatingGlobe').classList.toggle('transformed');
+}
+
+
+document.getElementById('tryItButton').addEventListener('click', transition);
+
+
 document.getElementById('cityInput').addEventListener('input', function() {
     if (this.value === '') { this.classList.add('placeholder');}
     else {this.classList.remove('placeholder');}
@@ -90,6 +105,48 @@ function displayingOutput() {
         section.style.display = "none";
     }
 }
+
+// Function to handle the API request
+function getWeatherAndDisplay(city) {
+    // Check if the city is not specified and set a default message
+    if (!city) {
+        document.getElementById('outputSection').innerHTML = 'Please enter a city to check its flood status or detect its weather conditions.';
+        displayingOutput();
+        return;
+    }
+
+    // Prepare the request
+    var url = 'http://localhost:5000/getWeather'; // Change this URL to where your Python Flask API is hosted
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ location: city }),
+    })
+        .then(response => response.text())
+        .then(data => {
+            // Display the data in 'outputSection'
+            document.getElementById('outputSection').innerHTML = data;
+            displayingOutput();
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            document.getElementById('outputSection').innerHTML = 'An error occurred while processing your request.';
+            displayingOutput();
+        });
+}
+// Modify event listener for cityInputButton
+document.getElementById('cityInputButton').addEventListener('click', function () {
+    var city = document.getElementById('cityInput').value;
+    getWeatherAndDisplay(city); // Call the API request function
+});
+
+// Add event listener for floodStatusButton
+document.getElementById('floodStatusButton').addEventListener('click', function () {
+    var city = document.getElementById('cityInput').value;
+    getWeatherAndDisplay(city); // Reuse the same function for consistency
+});
 
 
 /* Notes:

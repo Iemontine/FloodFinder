@@ -6,7 +6,9 @@ from earth import get_disaster_warnings
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
-def handle_function_call(completion, msgs):
+msgs = []
+def handle_function_call(completion):
+	global msgs
 	# handle function calling
 	response_message = completion.choices[0].message
 	tool_calls = response_message.tool_calls
@@ -39,7 +41,7 @@ def handle_function_call(completion, msgs):
 				"content": function_response,
 			})
 			print(f'{function_name} --> {function_response}')
-		completion = openai.chat.completions.create(model="gpt-4-1106-preview", messages=tool_msgs)
+		completion = openai.chat.completions.create(model="gpt-4-turbo", messages=tool_msgs)
 		print(f"Tokens Used To Function Call: {str(completion.usage.total_tokens)}")
 	return completion.choices[-1].message.content
 tools = [
@@ -78,21 +80,38 @@ CORS(app)  # Allows cross-origin requests
 
 @app.route('/getWeather', methods=['POST'])
 def get_weather():
+	global msgs
 	data = request.json
-	location = data.get('location', 'Not provided')
+	location =str(data.get('location', 'Not provided'))
+	print(location)
 	msgs = [
 		{"role": "system", "content": "Pass coordinates in the VERY SPECIFIC FORMAT: [longitude value] longitude, [latitude value] latitude. You are able to get the disaster warnings of given cities. Return 'Failure' if anything goes wrong, or if the user does not prompt a specific location. Give a EXTREMELY brief recommendation on what the user should do given the disaster warnings, if any. Ensure your final response is less than 500 characters long, responding in a single paragraph format."}, 
 		{"role": "user", "content": f"Get the coordinates of {location}"}, 
 	]
-	completion = openai.chat.completions.create(model="gpt-4-1106-preview", messages=msgs, tools=tools, tool_choice="auto")
-	function_response = handle_function_call(completion, msgs)
+	completion = openai.chat.completions.create(model="gpt-4-turbo", messages=msgs, tools=tools, tool_choice="auto")
+	function_response = handle_function_call(completion)
 	response = completion.choices[0].message.content if not function_response else function_response
 	msgs.append({"role": "assistant", "content": response})
 	msgs.append({"role": "user", "content": f"Now get the disaster warnings in {location} using these coordinates."})
-	completion = openai.chat.completions.create(model="gpt-4-1106-preview", messages=msgs, tools=tools, tool_choice="auto")
-	function_response = handle_function_call(completion, msgs)
+	completion = openai.chat.completions.create(model="gpt-4-turbo", messages=msgs, tools=tools, tool_choice="auto")
+	function_response = handle_function_call(completion)
 	response = completion.choices[0].message.content if not function_response else function_response
 
 	return response
 
-app.run(debug=True)
+# app.run(debug=True)
+
+location = "Sacramento CA"
+msgs = [
+	{"role": "system", "content": "Pass coordinates in the VERY SPECIFIC FORMAT: [longitude value] longitude, [latitude value] latitude. You are able to get the disaster warnings of given cities. Return 'Failure' if anything goes wrong, or if the user does not prompt a specific location. Give a EXTREMELY brief recommendation on what the user should do given the disaster warnings, if any. Ensure your final response is less than 500 characters long, responding in a single paragraph format."}, 
+	{"role": "user", "content": f"Get the coordinates of {location}"}, 
+]
+completion = openai.chat.completions.create(model="gpt-4-turbo", messages=msgs, tools=tools, tool_choice="auto")
+function_response = handle_function_call(completion)
+response = completion.choices[0].message.content if not function_response else function_response
+msgs.append({"role": "assistant", "content": response})
+msgs.append({"role": "user", "content": f"Now get the disaster warnings in {location} using these coordinates."})
+completion = openai.chat.completions.create(model="gpt-4-turbo", messages=msgs, tools=tools, tool_choice="auto")
+function_response = handle_function_call(completion)
+response = completion.choices[0].message.content if not function_response else function_response
+print("response")
