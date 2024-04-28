@@ -100,19 +100,3 @@ def get_weather():
 	return response
 
 app.run(debug=True)
-
-location = "Sacramento CA"
-
-msgs = [
-	{"role": "system", "content": "Pass coordinates in the VERY SPECIFIC FORMAT: [longitude value] longitude, [latitude value] latitude. You are able to get the disaster warnings of given cities. Return 'Failure' if anything goes wrong, or if the user does not prompt a specific location. Give a EXTREMELY brief recommendation on what the user should do given the disaster warnings, if any. Ensure your final response is less than 500 characters long, responding in a single paragraph format."}, 
-	{"role": "user", "content": f"Get the coordinates of {location}"}, 
-]
-completion = openai.chat.completions.create(model="gpt-4-turbo", messages=msgs, tools=tools, tool_choice="auto")
-function_response = handle_function_call(completion)
-response = completion.choices[0].message.content if not function_response else function_response
-msgs.append({"role": "assistant", "content": response})
-msgs.append({"role": "user", "content": f"Now get the disaster warnings in {location} using these coordinates."})
-completion = openai.chat.completions.create(model="gpt-4-turbo", messages=msgs, tools=tools, tool_choice="auto")
-function_response = handle_function_call(completion)
-response = completion.choices[0].message.content if not function_response else function_response
-print(response)

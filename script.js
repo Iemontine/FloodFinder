@@ -99,11 +99,7 @@ document.getElementById('cityInput').addEventListener('input', function() {
 
 function displayingOutput() {
     var section = document.getElementById('outputSection');
-    if (section.style.display == 'none') {
-        section.style.display = "block";
-    } else {
-        section.style.display = "none";
-    }
+    section.style.display = "block";
 }
 
 // Function to handle the API request
