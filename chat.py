@@ -1,5 +1,7 @@
 import openai
 import json
+from helpers.web import search_web
+from helpers.earth import search_earth_engine
 
 def handle_function_call(completion):
 	# handle function calling
@@ -9,7 +11,7 @@ def handle_function_call(completion):
 	if tool_calls:
 		# Step 3: call the function
 		available_functions = {
-			"search_google": search_google,
+			"search_web": search_web,
 			"search_earth_engine": search_earth_engine,
 		}
 		# extend conversation with assistant's reply
@@ -19,7 +21,7 @@ def handle_function_call(completion):
 			function_name = tool_call.function.name
 			function_to_call = available_functions[function_name]
 			function_args = json.loads(tool_call.function.arguments)
-			if function_name == "search_google":
+			if function_name == "search_web":
 				function_response = function_to_call(
 					location=function_args.get("location")
 				)
@@ -41,17 +43,14 @@ def handle_function_call(completion):
 		print(f"Tokens Used To Function Call: {str(completion.usage.total_tokens)}")
 
 		return completion.choices[-1].message.content
-def search_google(location):
-	#TODO: add search loop (limited to 10 searches from google)
-	return "37.7749° N, 122.4194° W"
-def search_earth_engine(coordinates):
-	return "Success"
+
+
 
 tools = [
 	{
 		"type": "function",
 		"function": {
-			"name": "search_google",
+			"name": "search_web",
 			"description": "Use to ensure your assumption of the coordinates of a city's coordinates is correct.",
 			"parameters": {
 				"type": "object",
@@ -77,6 +76,7 @@ tools = [
 		},
 	},
 ]
+
 msgs = [
 	{"role": "system", "content": "You must ensure your assumption of a city's coordinates is correct. After obtaining coordinates, you must perform the Earth Search function on those coordinates."}, 
 	{"role": "user", "content": "Get the flood data of the city of San Francisco."}, 
