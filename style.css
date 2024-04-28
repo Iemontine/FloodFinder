@@ -1,34 +1,181 @@
-body {
- font-size: 18px;
- line-height: 1.6;
- background: radial-gradient(ellipse at center, #f5f7fa 0%, #c3cfe2 100%);
+@font-face {
+    /* Cedora Bold font by Lafontype used from https://www.1001fonts.com/sleek-fonts.html?page=6*/
+    font-family: CedoraBold;
+    font-weight: bold;
+    src: url("Cedora-Bold.otf") format("opentype");
 }
+
+
+@font-face {
+    /* Barlow Condensed font by Google used from https://fonts.google.com/share?selection.family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900*/
+    font-family: BarlowCondensed;
+    font-weight: bold;
+    src: url("BarlowCondensed-Regular.ttf") format("truetype");
+}
+
+
 html,body{
-	height: 100%;
+    font-family: CedoraBold;
+    height: 100%;
+    background-image: linear-gradient(to bottom right, #12214a, #495d92);
+    overflow: hidden;
+    color: #bdc9db
 }
-body{
-	display: flex;
+
+
+body {
+    font-size: 18px;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
 }
+
+
+main {
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 20px;
+    width: 100%;
+}
+
+
+header {
+    margin-left: 20px;
+    margin-top: -60px;
+}
+
+
+#siteTitle {
+    font-size: 80px;
+}
+
+
+#AIHeader {
+    margin-top: 43px;
+    font-size: 35px;
+    font-family: BarlowCondensed;
+}
+
+
+#floodStatusButton {
+    margin-left: 20px;
+    margin-top: -60px;
+}
+
+
+button {
+    background-color: #e1c065;
+    padding: 20px;
+    color: black;
+    width: fit-content;
+    border: none;
+    border-radius: 50px;
+    font-size: 30px;
+    outline: none;
+    font-weight: bold;
+}
+
+
+button:hover {
+    transform: scale(1.1);
+}
+
+
+.inputArea {
+    display: flex;
+    flex-direction: row;
+}
+
+
+#cityInput {
+    width: fit-content;
+    margin-left: 20px;
+    margin-top: 30px;
+    padding: 20px;
+    border: none;
+    border-radius: 50px;
+    background-color: black;
+    font-size: 30px;
+    outline: none;
+    opacity: 30%;
+}
+
+
+#cityInput::placeholder {
+    color: white;
+}
+
+
+#cityInputButton {
+    background-color: #e1c065;
+    margin-top: 30px;
+    margin-left: 20px;
+    padding: 20px;
+    color: black;
+    width: fit-content;
+    border: none;
+    border-radius: 50px;
+    font-size: 30px;
+    outline: none;
+    font-weight: bold;
+}
+
+
+#outputSection {
+    display: none;
+    width: 510px;
+    height: 510px;
+    margin-left: 20px;
+    margin-top: 32px;
+    padding: 20px;
+    border: none;
+    border-radius: 30px;
+    background-color: #718cb6;
+    font-size: 30px;
+}
+
+
+footer {
+    font-size: 15px;
+    text-align: left;
+    width: 100%;
+    position: fixed;
+    bottom: -12px;
+}
+
+
+/* #rotatingGlobe{
+    margin: 0 auto;
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    bottom: -200px;
+    right: 50px;
+    transform: scale(2.3);
+} */
+
+
+.globeContainer {
+    display: flex;
+    justify-content: center;
+}
+
+
 #rotatingGlobe{
-	margin: auto auto;
+    user-select: none;
+    margin: 0 auto;
+    width: 200px;
+    height: 200px;
+    position: relative;
+    bottom: -200px;
+    transform: scale(1.3);
+    transition: transform 2s ease, bottom 2s ease, right 5s ease, position 2s ease;
 }
-.glow{
-	width: 800px;
-	height: 800px;
-background: rgb(255,255,255);
-background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 50%, rgba(255,255,255,0) 100%);
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	transform:translate(-30%,-70%)
-}
-@media only screen and (max-width: 1200px) {
-}
-@media only screen and (max-width: 992px) {
-}
-@media only screen and (max-width: 768px) {
-}
-@media only screen and (max-width: 480px) {
-}
-@media only screen and (max-width: 320px) {
+
+
+#rotatingGlobe.transformed {
+    position: absolute;
+    bottom: -200px;
+    right: 50px;
+    transform: scale(2.3);
 }
