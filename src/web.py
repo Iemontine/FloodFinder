@@ -4,13 +4,12 @@ import http.client
 import json
 
 load_dotenv()
-browserless_api_key = os.getenv('BROWSERLESS_API_KEY')
 serper_api_key = os.getenv('SERPER_API_KEY')
 
-def search(query):
+def research_coordinates(location):
     conn = http.client.HTTPSConnection("google.serper.dev")
     payload = json.dumps({
-    "q": query
+   		"q": f"coordinates of {location}"
     })
     headers = {
         'X-API-KEY': serper_api_key,
@@ -19,7 +18,4 @@ def search(query):
     conn.request("POST", "/search", payload, headers)
     res = conn.getresponse()
     data = (json.loads(res.read().decode("utf-8")))
-    print(data['organic'][0]['snippet'])
-    
-search("What are the coordinates of Los Angles, CA?")
-
+    return data['organic'][0]['snippet']

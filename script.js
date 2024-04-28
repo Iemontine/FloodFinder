@@ -54,12 +54,18 @@
         options = options || {};
         var lakes = null;
 
+
+
+
         return function (planet) {
             planet.onInit(function () {
                 // on its namespace on `planet.plugins`. We're loading a custom
                 var world = planet.plugins.topojson.world;
                 lakes = topojson.feature(world, world.objects.ne_110m_lakes);
             });
+
+
+
 
             planet.onDraw(function () {
                 planet.withSavedContext(function (context) {
@@ -73,6 +79,7 @@
     };
 })();
 
+
 document.addEventListener('DOMContentLoaded', function () {
     const levels = [
         document.querySelector('header'),
@@ -81,8 +88,10 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('outputSection')
     ];
 
+
     globe = document.getElementById('rotatingGlobe');
     initialBottom = -200; // Initial bottom position of the globe
+
 
     levels.forEach((level, i) => {
         level.addEventListener('mouseenter', function () {
@@ -90,11 +99,13 @@ document.addEventListener('DOMContentLoaded', function () {
             globe.style.bottom = `${newPosition}px`;
         });
 
+
         level.addEventListener('mouseleave', function () {
             globe.style.bottom = `${initialBottom}px`;
         });
     });
 });
+
 
 // Modify event listener for cityInputButton
 document.getElementById('cityInputButton').addEventListener('click', function () {
@@ -102,11 +113,13 @@ document.getElementById('cityInputButton').addEventListener('click', function ()
     getWeatherAndDisplay(city); // Call the API request function
 });
 
+
 // Add event listener for floodStatusButton
 document.getElementById('floodStatusButton').addEventListener('click', function () {
     var city = document.getElementById('cityInput').value;
     getWeatherAndDisplay(city); // Reuse the same function for consistency
 });
+
 
 // Function to handle the API request
 function getWeatherAndDisplay(city) {
@@ -116,6 +129,7 @@ function getWeatherAndDisplay(city) {
         displayingOutput();
         return;
     }
+
 
     // Prepare the request
     var url = 'http://localhost:5000/getWeather'; // Change this URL to where your Python Flask API is hosted
@@ -139,12 +153,22 @@ function getWeatherAndDisplay(city) {
         });
 }
 
+
 document.getElementById('cityInput').addEventListener('input', function() {
     if (this.value === '') { this.classList.add('placeholder');}
     else {this.classList.remove('placeholder');}
 });
 
+
+
+
 function displayingOutput() {
     var section = document.getElementById('outputSection');
     section.style.display = "block";
 }
+
+
+/* Notes:
+- Write something for: If detect button is selected but there's nothing inside cityInput, display whatever you'd display if "check flood status" was pressed
+- Load in data specific depending on which button is pressed
+*/

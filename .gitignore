@@ -1,2 +1,4 @@
 my-secret-key.json
-.env
+.*
+temp.*
+__pycache__
