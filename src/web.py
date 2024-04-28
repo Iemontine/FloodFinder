@@ -8,7 +8,7 @@ serper_api_key = os.getenv('SERPER_API_KEY')
 
 def research_coordinates(location):
     conn = http.client.HTTPSConnection("google.serper.dev")
-    payload = json.dumps({
+    payload = json.dumps({pi
    		"q": f"coordinates of {location}"
     })
     headers = {
