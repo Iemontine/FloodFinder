@@ -35,14 +35,17 @@ def handle_function_call(completion):
 					"name": function_name,
 					"content": function_response,
 				}
-			)  
+			)
+			print(function_name)
 		completion = openai.chat.completions.create(model="gpt-4-turbo-preview", messages=tool_msgs)
 		print(f"Tokens Used To Function Call: {str(completion.usage.total_tokens)}")
+
 		return completion.choices[-1].message.content
 def search_google(location):
-	return "38deg 32' 41.6652'' N and 121deg 44' 25.8612'' W"
+	#TODO: add search loop (limited to 10 searches from google)
+	return "37.7749° N, 122.4194° W"
 def search_earth_engine(coordinates):
-	print("hello")
+	return "Success"
 
 tools = [
 	{
@@ -63,11 +66,11 @@ tools = [
 		"type": "function",
 		"function": {
 			"name": "search_earth_engine",
-			"description": "Search the earth engine given a city's coordinates. Call this given a city's coordinates.",
+			"description": "Returns flood data on given coordinates.",
 			"parameters": {
 				"type": "object",
 				"properties": {
-					"coordinates": {"type": "string", "description": "The coordinates of a city, e.g. 38deg 32' 41.6652'' N and 121deg 44' 25.8612'' W", },
+					"coordinates": {"type": "string", "description": "The coordinates of a city, e.g. AAAA.aaaa° N, BBBB.bbbb° W", },
 				},
 				"required": ["coordinates"],
 			},
@@ -75,8 +78,8 @@ tools = [
 	},
 ]
 msgs = [
-	{"role": "system", "content": "If a function call or API call fails, respond with ONLY \"Error\""}, 
-	{"role": "user", "content": "Search the earth engine for the city of San Francisco?"}, 
+	{"role": "system", "content": "You must ensure your assumption of a city's coordinates is correct. After obtaining coordinates, you must perform the Earth Search function on those coordinates."}, 
+	{"role": "user", "content": "Get the flood data of the city of San Francisco."}, 
 ]
 completion = openai.chat.completions.create(model="gpt-4-turbo-preview", messages=msgs, tools=tools, tool_choice="auto")
 print(f"Tokens Used To Respond: {str(completion.usage.total_tokens)}")
