@@ -75,6 +75,71 @@
     };
 })();
 
+document.addEventListener('DOMContentLoaded', function () {
+    const levels = [
+        document.querySelector('header'),
+        document.getElementById('floodStatusButton'),
+        document.querySelector('.inputArea'),
+        document.getElementById('outputSection')
+    ];
+
+    globe = document.getElementById('rotatingGlobe');
+    initialBottom = -200; // Initial bottom position of the globe
+
+    levels.forEach((level, i) => {
+        level.addEventListener('mouseenter', function () {
+            newPosition = initialBottom + (50 * (i + 1));
+            globe.style.bottom = `${newPosition}px`;
+        });
+
+        level.addEventListener('mouseleave', function () {
+            globe.style.bottom = `${initialBottom}px`;
+        });
+    });
+});
+
+// Modify event listener for cityInputButton
+document.getElementById('cityInputButton').addEventListener('click', function () {
+    var city = document.getElementById('cityInput').value;
+    getWeatherAndDisplay(city); // Call the API request function
+});
+
+// Add event listener for floodStatusButton
+document.getElementById('floodStatusButton').addEventListener('click', function () {
+    var city = document.getElementById('cityInput').value;
+    getWeatherAndDisplay(city); // Reuse the same function for consistency
+});
+
+// Function to handle the API request
+function getWeatherAndDisplay(city) {
+    // Check if the city is not specified and set a default message
+    if (!city) {
+        document.getElementById('outputSection').innerHTML = 'Please enter a city to check its flood status or detect its weather conditions.';
+        displayingOutput();
+        return;
+    }
+
+    // Prepare the request
+    var url = 'http://localhost:5000/getWeather'; // Change this URL to where your Python Flask API is hosted
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ location: city }),
+    })
+        .then(response => response.text())
+        .then(data => {
+            // Display the data in 'outputSection'
+            document.getElementById('outputSection').innerHTML = data;
+            displayingOutput();
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            document.getElementById('outputSection').innerHTML = 'An error occurred while processing your request.';
+            displayingOutput();
+        });
+}
 
 document.getElementById('cityInput').addEventListener('input', function() {
     if (this.value === '') { this.classList.add('placeholder');}
@@ -84,13 +149,8 @@ document.getElementById('cityInput').addEventListener('input', function() {
 
 function displayingOutput() {
     var section = document.getElementById('outputSection');
-    if (section.style.display == 'none') {
-        section.style.display = "block";
-    } else {
-        section.style.display = "none";
-    }
+    section.style.display = "block";
 }
-
 
 /* Notes:
 - Write something for: If detect button is selected but there's nothing inside cityInput, display whatever you'd display if "check flood status" was pressed

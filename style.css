@@ -19,7 +19,7 @@ html,body{
     height: 100%;
     background-image: linear-gradient(to bottom right, #12214a, #495d92);
     overflow: hidden;
-    color: #bdc9db
+    color: #bdc9db;
 }
 
 
@@ -28,6 +28,7 @@ body {
     line-height: 1.6;
     display: flex;
     flex-direction: column;
+	z-index: 20;
 }
 
 
@@ -42,24 +43,27 @@ main {
 header {
     margin-left: 20px;
     margin-top: -60px;
+	z-index: 20;
 }
 
 
 #siteTitle {
     font-size: 80px;
+	z-index: 20;
 }
 
 
 #AIHeader {
     margin-top: 43px;
     font-size: 35px;
-    font-family: BarlowCondensed;
+	z-index: 20;
 }
 
 
 #floodStatusButton {
     margin-left: 20px;
     margin-top: -60px;
+	z-index: 20;
 }
 
 
@@ -73,17 +77,20 @@ button {
     font-size: 30px;
     outline: none;
     font-weight: bold;
+	z-index: 20;
 }
 
 
 button:hover {
     transform: scale(1.1);
+	z-index: 20;
 }
 
 
 .inputArea {
     display: flex;
     flex-direction: row;
+	z-index: 20;
 }
 
 
@@ -98,11 +105,14 @@ button:hover {
     font-size: 30px;
     outline: none;
     opacity: 30%;
+	color: white;
+	z-index: 20;
 }
 
 
 #cityInput::placeholder {
     color: white;
+	z-index: 20;
 }
 
 
@@ -118,6 +128,7 @@ button:hover {
     font-size: 30px;
     outline: none;
     font-weight: bold;
+	z-index: 20;
 }
 
 
@@ -132,6 +143,8 @@ button:hover {
     border-radius: 30px;
     background-color: #718cb6;
     font-size: 30px;
+	color: rgb(150, 0, 0);
+	z-index: 20;
 }
 
 
@@ -141,10 +154,12 @@ footer {
     width: 100%;
     position: fixed;
     bottom: -12px;
+	z-index: 20;
 }
 
 
 #rotatingGlobe{
+	user-select: none;
     margin: 0 auto;
     width: 200px;
     height: 200px;
@@ -152,4 +167,7 @@ footer {
     bottom: -200px;
     right: 50px;
     transform: scale(2.3);
+	transition: top 2s ease, bottom 2s ease;
 }
+
+

@@ -22,10 +22,8 @@
             <h1 id="siteTitle"> flood finder </h1>
         </header>
 
-
-        <h2 id="AIHeader"> AI-powered flood detection system </h2>
+		<h2 id="mainHeader"> AI-powered flood detection system </h2>
     </main>
-
 
     <button id="floodStatusButton" onclick="displayingOutput()"> check flood status </button>
     <div class="inputArea">
@@ -36,7 +34,7 @@
     </div>
    
     <div id="outputSection">
-        <p> Output stuff </p>
+        <p id="outputText"> Output stuff </p>
     </div>
 
 
@@ -46,29 +44,10 @@
         </p>
     </footer>
 
-
-    <!-- <script>
-        tinymce.init({
-        selector: 'textarea',
-        plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate ai mentions tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss markdown',
-        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
-        tinycomments_mode: 'embedded',
-        tinycomments_author: 'Author name',
-        mergetags_list: [
-        { value: 'First.Name', title: 'First Name' },
-        { value: 'Email', title: 'Email' },
-        ],
-        ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
-    });
-    </script> -->
-   
-    <!-- <textarea></textarea> -->
-   
-    <!-- Globe files by CodeMaster7000 used under MIT Licensing https://github.com/CodeMaster7000/Globe?tab=readme-ov-file-->
+	<!-- Globe files by CodeMaster7000 used under MIT Licensing https://github.com/CodeMaster7000/Globe?tab=readme-ov-file-->
     <div class="globeContainer">
         <canvas id='rotatingGlobe' width='600' height='600' style='width: 600px; height: 600px; cursor: move;'>
         </canvas>
-        <!-- <div id="glow" class="glow"></div> -->
     </div>
     <script src="script.js"></script>
   </body>
