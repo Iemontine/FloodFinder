@@ -120,8 +120,10 @@ button:hover {
     border: none;
     border-radius: 30px;
     background-color: #718cb6;
-    font-size: 30px;
-    color: rgb(150, 0, 0);
+	opacity: 80%;
+    font-size: 20px;
+	flex-direction: column;
+    color: rgb(44, 44, 44);
     z-index: 20;
 }
 
@@ -130,9 +132,20 @@ footer {
     text-align: left;
     width: 100%;
     position: fixed;
-    bottom: -12px;
+    bottom: 0px;
     z-index: 20;
 }
+
+embed {
+	display: none;
+	position:absolute;
+	z-index:100;
+	margin-left: 40px;
+	margin-bottom: 25px;
+	bottom: 00px;
+	height: 250px;
+}
+
 
 #rotatingGlobe{
     user-select: none;

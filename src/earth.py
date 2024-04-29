@@ -4,11 +4,11 @@
 def get_disaster_warnings(coordinates):
 	print(coordinates)
 	return str({
-		"flood_data": "The nearest flood is at coordinats 40 -122 with a certainty of 75%.",
-		"fire_data": "Fire detected in San Francisco.",
-		"earth_data": "There was an 7.2 earthquake 3 minutes ago in Vacaville, CA.",
-		"wind_advisory": "There is a wind advisory warning in the area.",
-		"heat_advisory": "There is a heat advisory warning in the area."
+		"flood_data": "The nearest flood is 50 miles was detected.",
+		# "fire_data": "Fire detected in San Francisco.",
+		# "earth_data": "There was an 7.2 earthquake 3 minutes ago in Vacaville, CA.",
+		# "wind_advisory": "There is a wind advisory warning in the area.",
+		# "heat_advisory": "There is a heat advisory warning in the area."
 	})
 
 # credentials = service_account.Credentials.from_service_account_file(KEY)

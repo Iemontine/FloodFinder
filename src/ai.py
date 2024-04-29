@@ -40,6 +40,7 @@ def handle_function_call(completion):
 				"name": function_name,
 				"content": function_response,
 			})
+			msgs.append({"role": "system", "content": function_response})
 			print(f'{function_name} --> {function_response}')
 		completion = openai.chat.completions.create(model="gpt-4-turbo", messages=tool_msgs)
 		print(f"Tokens Used To Function Call: {str(completion.usage.total_tokens)}")
@@ -82,10 +83,10 @@ CORS(app)  # Allows cross-origin requests
 def get_weather():
 	global msgs
 	data = request.json
-	location =str(data.get('location', 'Not provided'))
+	location = str(data.get('location', 'Not provided'))
 	print(location)
 	msgs = [
-		{"role": "system", "content": "Pass coordinates in the VERY SPECIFIC FORMAT: [longitude value] longitude, [latitude value] latitude. You are able to get the disaster warnings of given cities. Return 'Failure' if anything goes wrong, or if the user does not prompt a specific location. Give a EXTREMELY brief recommendation on what the user should do given the disaster warnings, if any. Ensure your final response is less than 500 characters long, responding in a single paragraph format."}, 
+		{"role": "system", "content": "You are able to get the disaster warnings of given cities. Return 'Failure' if anything goes wrong, or if the user does not prompt a specific location. Give a EXTREMELY brief recommendation on what the user should do given the disaster warnings, if any. Ensure your final response is less than 500 characters long, responding in a single paragraph format."}, 
 		{"role": "user", "content": f"Get the coordinates of {location}"}, 
 	]
 	completion = openai.chat.completions.create(model="gpt-4-turbo", messages=msgs, tools=tools, tool_choice="auto")
